@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tobin Ngo — Procurement & Supply Chain</title>
+<meta name="description" content="Tobin (Trung) Ngo — Procurement & Supply Chain. SAP S/4HANA, AI procurement agents, forecasting and inventory analytics.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F9FB;
+  --card:#FFFFFF;
+  --ink:#131C26;
+  --ink-soft:#3E4C5C;
+  --blue:#12519F;
+  --blue-deep:#0A2E5C;
+  --amber:#DD8A07;
+  --green:#1F7A4D;
+  --rule:#D5DDE6;
+  --rule-soft:#E6ECF2;
+  --mono-bg:#EDF1F6;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+body{
+  font-family:'IBM Plex Sans',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.55;
+  font-size:16px;
+}
+::selection{background:var(--blue);color:#fff}
+a{color:var(--blue)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.mono{font-family:'IBM Plex Mono',monospace}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+/* ---------- top document bar ---------- */
+.docbar{
+  border-bottom:1px solid var(--rule);
+  background:var(--card);
+  position:sticky;top:0;z-index:50;
+}
+.docbar-in{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:10px 0;font-family:'IBM Plex Mono',monospace;font-size:12px;
+  color:var(--ink-soft);letter-spacing:.02em;
+}
+.docbar-in .doc-no{white-space:nowrap}
+.docbar nav{display:flex;gap:18px;flex-wrap:wrap}
+.docbar nav a{color:var(--ink-soft);text-decoration:none}
+.docbar nav a:hover{color:var(--blue)}
+
+/* ---------- hero: personal datasheet ---------- */
+.hero{padding:64px 0 56px;border-bottom:1px solid var(--rule)}
+.part-line{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-soft);
+}
+.part-line .pn{
+  background:var(--blue-deep);color:#fff;padding:3px 10px;border-radius:3px;
+  font-weight:600;letter-spacing:.06em;
+}
+.barcode{
+  height:22px;width:120px;border-radius:2px;
+  background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 7px,transparent 7px 9px,var(--ink) 9px 10px,transparent 10px 14px);
+  opacity:.85;
+}
+h1{
+  font-family:'Archivo',sans-serif;font-weight:800;
+  font-size:clamp(2.6rem,7vw,4.6rem);
+  letter-spacing:-.02em;line-height:1.02;
+  margin:18px 0 6px;text-transform:uppercase;
+}
+.role{
+  font-family:'Archivo',sans-serif;font-weight:700;
+  font-size:clamp(1.05rem,2.4vw,1.4rem);
+  color:var(--blue);letter-spacing:.01em;margin-bottom:26px;
+}
+.hero-grid{display:grid;grid-template-columns:1.2fr .9fr;gap:40px;margin-top:8px}
+.ds-block h3{
+  font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
+  letter-spacing:.14em;color:var(--blue);text-transform:uppercase;
+  border-bottom:2px solid var(--ink);padding-bottom:6px;margin-bottom:12px;
+}
+.ds-block + .ds-block{margin-top:26px}
+.ds-block p{color:var(--ink-soft);max-width:56ch}
+.feat{list-style:none}
+.feat li{
+  padding:6px 0 6px 22px;position:relative;color:var(--ink-soft);
+}
+.feat li::before{
+  content:"▪";position:absolute;left:2px;color:var(--amber);font-size:13px;top:8px;
+}
+.spec{width:100%;border-collapse:collapse;font-size:14px;background:var(--card);border:1px solid var(--rule)}
+.spec caption{
+  caption-side:top;text-align:left;font-family:'IBM Plex Mono',monospace;
+  font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--blue);
+  text-transform:uppercase;border-bottom:2px solid var(--ink);padding:0 0 6px;margin-bottom:0;
+}
+.spec th,.spec td{border:1px solid var(--rule-soft);padding:9px 12px;text-align:left;vertical-align:top}
+.spec thead th{
+  background:var(--mono-bg);font-family:'IBM Plex Mono',monospace;font-size:11px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;
+}
+.spec td.val{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--blue-deep);white-space:nowrap}
+.spec td.cond{color:var(--ink-soft);font-size:13px}
+
+/* ---------- sections ---------- */
+section{padding:60px 0;border-bottom:1px solid var(--rule)}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:30px;flex-wrap:wrap}
+.sec-num{
+  font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
+  color:var(--amber);letter-spacing:.14em;
+}
+.sec-head h2{
+  font-family:'Archivo',sans-serif;font-weight:800;text-transform:uppercase;
+  font-size:clamp(1.5rem,3.4vw,2.1rem);letter-spacing:-.01em;
+}
+.sec-sub{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);margin-left:auto}
+
+/* experience */
+.xp{border:1px solid var(--rule);background:var(--card)}
+.xp + .xp{margin-top:18px}
+.xp-head{
+  display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline;
+  padding:16px 20px;border-bottom:1px solid var(--rule-soft);
+}
+.xp-head h3{font-family:'Archivo',sans-serif;font-weight:700;font-size:1.12rem}
+.xp-head .co{color:var(--blue);font-weight:600}
+.xp-head .meta{
+  margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);
+  display:flex;gap:14px;flex-wrap:wrap;
+}
+.xp ul{list-style:none;padding:14px 20px 18px}
+.xp ul li{padding:5px 0 5px 22px;position:relative;color:var(--ink-soft);font-size:15px}
+.xp ul li::before{content:"—";position:absolute;left:0;color:var(--blue);font-weight:600}
+.xp .tag{background:var(--mono-bg);border:1px solid var(--rule-soft);border-radius:3px;padding:1px 7px;font-size:11px}
+mark{background:none;color:var(--ink);font-weight:600}
+
+/* projects */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.proj{
+  border:1px solid var(--rule);background:var(--card);display:flex;flex-direction:column;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.proj:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(10,46,92,.10)}
+.proj-top{
+  padding:14px 18px;border-bottom:1px solid var(--rule-soft);
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+}
+.proj-top .pcode{color:var(--blue);font-weight:600}
+.proj-top .pdate{color:var(--ink-soft)}
+.proj-body{padding:18px;flex:1;display:flex;flex-direction:column;gap:12px}
+.proj-body h3{font-family:'Archivo',sans-serif;font-weight:700;font-size:1.2rem;line-height:1.25}
+.proj-body p{color:var(--ink-soft);font-size:15px}
+.proj-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}
+.proj-stats span{
+  font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;
+  background:var(--mono-bg);border:1px solid var(--rule-soft);border-radius:3px;padding:3px 8px;color:var(--blue-deep);
+}
+.proj-cta{
+  display:inline-block;margin-top:14px;text-decoration:none;font-weight:600;font-size:14px;
+  font-family:'IBM Plex Mono',monospace;color:#fff;background:var(--blue);
+  padding:10px 16px;border-radius:3px;align-self:flex-start;
+}
+.proj-cta:hover{background:var(--blue-deep)}
+.proj-cta.ghost{background:transparent;color:var(--blue);border:1px solid var(--blue)}
+.proj-cta.ghost:hover{background:var(--blue);color:#fff}
+
+/* skills BOM */
+.bom{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--rule);font-size:14.5px}
+.bom th,.bom td{border:1px solid var(--rule-soft);padding:11px 14px;text-align:left;vertical-align:top}
+.bom thead th{
+  background:var(--blue-deep);color:#fff;font-family:'IBM Plex Mono',monospace;
+  font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;border-color:#274a77;
+}
+.bom td.ref{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--amber);white-space:nowrap;width:64px}
+.bom td.cat{font-weight:600;white-space:nowrap}
+.bom td.items{color:var(--ink-soft)}
+
+/* education + footer */
+.edu{border:1px solid var(--rule);background:var(--card);padding:20px;display:flex;flex-wrap:wrap;gap:8px 20px;align-items:baseline}
+.edu h3{font-family:'Archivo',sans-serif;font-weight:700}
+.edu .meta{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft)}
+footer{padding:56px 0 70px}
+.order{border:1px solid var(--rule);background:var(--card)}
+.order-head{
+  padding:14px 20px;border-bottom:2px solid var(--ink);
+  font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--blue);
+}
+.order-body{padding:22px 20px;display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center}
+.order-body a{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;text-decoration:none}
+.order-body a:hover{text-decoration:underline}
+.colophon{
+  margin-top:26px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:840px){
+  .hero-grid{grid-template-columns:1fr}
+  .proj-grid{grid-template-columns:1fr}
+  .docbar nav{display:none}
+  .sec-sub{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="docbar">
+  <div class="wrap docbar-in">
+    <span class="doc-no">DOC NO. TNGO-26A &nbsp;·&nbsp; REV 07/2026</span>
+    <nav aria-label="Sections">
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="part-line">
+      <span class="pn">TNGO-26A</span>
+      <span>PROCUREMENT · SUPPLY CHAIN · OPERATIONS</span>
+      <span class="barcode" aria-hidden="true"></span>
+    </div>
+    <h1>Tobin (Trung) Ngo</h1>
+    <p class="role">Procurement & Supply Chain — SAP S/4HANA · AI Agents · Inventory Analytics</p>
+
+    <div class="hero-grid">
+      <div>
+        <div class="ds-block">
+          <h3>General Description</h3>
+          <p>Supply chain senior at George Mason University and Procurement Intern at EchoStar | Hughes, where I manage purchasing across <strong>200+ active MPNs</strong> feeding satellite hardware production. I work at the intersection of classic procurement discipline — lead times, reorder points, supplier follow-up — and modern tooling: I build AI agents that do the repetitive research so buyers can make faster, better-sourced decisions.</p>
+        </div>
+        <div class="ds-block">
+          <h3>Features</h3>
+          <ul class="feat">
+            <li>Hands-on SAP S/4HANA (SCM & MM) in a live production procurement environment</li>
+            <li>Built a multi-model AI procurement agent — lead-time research cut from hours to ~30 minutes</li>
+            <li>Fluent across ERP, BI, and SQL: NetSuite, Dynamics 365, Power BI, Tableau</li>
+            <li>Applied EOQ, safety stock, and demand forecasting on real and simulated datasets</li>
+          </ul>
+        </div>
+        <div class="ds-block">
+          <h3>Applications</h3>
+          <ul class="feat">
+            <li>Procurement / Buyer & Supplier Management</li>
+            <li>Supply Chain & Operations Analysis</li>
+            <li>Inventory Planning & Demand Forecasting</li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <table class="spec">
+          <caption>Performance Summary</caption>
+          <thead><tr><th>Parameter</th><th>Value</th><th>Conditions</th></tr></thead>
+          <tbody>
+            <tr><td>Active MPNs managed</td><td class="val">200+</td><td class="cond">SAP S/4HANA · EchoStar | Hughes</td></tr>
+            <tr><td>Supplier network standardized</td><td class="val">~80</td><td class="cond">Distributors, suppliers & manufacturers</td></tr>
+            <tr><td>Lead-time research cycle</td><td class="val">hrs → 30 min</td><td class="cond">Claude + Gemini agent, live data</td></tr>
+            <tr><td>Late deliveries reduced</td><td class="val">~20%</td><td class="cond">Buyer order reviews + daily follow-up</td></tr>
+            <tr><td>Lead time reduction</td><td class="val">~18%</td><td class="cond">Cross-functional planning · Martin Marietta</td></tr>
+            <tr><td>Expedite orders, peak weeks</td><td class="val">≈ 0</td><td class="cond">AI-surfaced inventory risk alerts</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2>Work Experience</h2>
+      <span class="sec-sub">TRACEABILITY LOG · MOST RECENT FIRST</span>
+    </div>
+
+    <article class="xp reveal">
+      <div class="xp-head">
+        <h3>Procurement Intern</h3>
+        <span class="co">EchoStar | Hughes</span>
+        <div class="meta"><span>GERMANTOWN, MD</span><span>JUN 2026 – PRESENT</span></div>
+      </div>
+      <ul>
+        <li>Facilitate purchasing for production across <mark>200+ active MPNs</mark>, analyzing supplier lead times and PO requirements in <span class="tag">SAP S/4HANA</span> and <span class="tag">Excel</span> to keep materials available for scheduled builds and reduce turnaround time.</li>
+        <li>Track and organize SOPs, POs, and BOMs; review open orders with buyers and follow up with vendors daily — cutting late deliveries by <mark>~20%</mark> and keeping production timelines on track.</li>
+        <li>Deploy AI tools (<span class="tag">Claude</span> + <span class="tag">Gemini</span>) to surface inventory risks early, enabling proactive restocks that held emergency expedite orders <mark>near zero</mark> during peak production weeks.</li>
+        <li>Partner with shipping & receiving to resolve delivery issues and update records, supporting <mark>100% on-time</mark> material flow to the production schedule.</li>
+      </ul>
+    </article>
+
+    <article class="xp reveal">
+      <div class="xp-head">
+        <h3>Supply Chain & Operations Data Annotator</h3>
+        <span class="co">Scale AI · Outlier</span>
+        <div class="meta"><span>SAN FRANCISCO, CA (REMOTE)</span><span>MAR 2025 – PRESENT</span></div>
+      </div>
+      <ul>
+        <li>Validate AI outputs on logistics, inventory, procurement, and demand-forecasting cases — <mark>80+ evaluations weekly</mark> at ~90% against quality criteria — reducing data inconsistency by <mark>~15%</mark>.</li>
+        <li>Analyze transportation, inventory, and procurement datasets from <span class="tag">SAP</span> and <span class="tag">NetSuite</span>, cleansing with <span class="tag">SQL</span> and building unified <span class="tag">Power BI</span> dashboards that improved inventory visibility for the whole team.</li>
+        <li>Apply <mark>EOQ, forecasting models, and inventory optimization</mark> to evaluate logistics and procurement cases, delivering insights that reduced excess stock and sharpened demand plans.</li>
+      </ul>
+    </article>
+
+    <article class="xp reveal">
+      <div class="xp-head">
+        <h3>Logistics & Supply Chain Planning Intern</h3>
+        <span class="co">Martin Marietta Materials</span>
+        <div class="meta"><span>RALEIGH, NC</span><span>MAY 2024 – AUG 2024</span></div>
+      </div>
+      <ul>
+        <li>Tracked inventory across <mark>ten product categories</mark> in <span class="tag">NetSuite</span> and <span class="tag">Excel</span>, reducing stockouts to 12%.</li>
+        <li>Produced weekly material and KPI reports (XLOOKUP, SUMIFS, PivotTables) that drove data-based decisions and improved on-time delivery.</li>
+        <li>Extracted and visualized historical sales and inventory in <span class="tag">Tableau</span> to build more accurate demand forecasts for inventory planning.</li>
+        <li>Coordinated with production planning, logistics, and finance on order management — supporting a <mark>~18% lead-time reduction</mark>.</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2>Projects</h2>
+      <span class="sec-sub">REFERENCE DESIGNS</span>
+    </div>
+    <div class="proj-grid">
+      <article class="proj reveal">
+        <div class="proj-top"><span class="pcode">PRJ-01 · AI AGENT</span><span class="pdate">JUN 2026</span></div>
+        <div class="proj-body">
+          <h3>Multi-Model Procurement Agent</h3>
+          <p>An AI agent (Claude + Gemini, each routed to what it does best) that continuously refreshes vendor and distributor lead times from supplier sites, SAP, Excel, and historical RFQs/RFPs/POs/BOMs — so purchasing decisions run on live data instead of stale spreadsheets. It also drafts tailored supplier outreach, quote comparisons, reorder points, and stockout alerts.</p>
+          <div class="proj-stats">
+            <span>LEAD-TIME RESEARCH: HRS → 30 MIN</span>
+            <span>~80 SUPPLIERS STANDARDIZED</span>
+            <span>CLAUDE + GEMINI ROUTING</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj reveal">
+        <div class="proj-top"><span class="pcode">PRJ-02 · ANALYTICS</span><span class="pdate">JUL 2026</span></div>
+        <div class="proj-body">
+          <h3>AeroLink Systems — Supply Chain Analytics</h3>
+          <p>A full analytics build for a fictional satellite & avionics hardware manufacturer: 420 electronic-component SKUs (PCBs, memory, capacitors, inductors, RF, aircraft-grade materials) across 3 sites and 10 suppliers, with 24 months of simulated demand. Every KPI is computed live in the browser — ABC-XYZ segmentation, forecast MAPE, excess & aging, supplier risk, and an interactive EOQ / safety-stock replenishment lab.</p>
+          <div class="proj-stats">
+            <span>420 SKUs · 3 SITES · 10 SUPPLIERS</span>
+            <span>ABC-XYZ · EOQ · ROP · MAPE</span>
+          </div>
+          <a class="proj-cta" href="dashboard.html">Open live dashboard →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2>Technical Skills</h2>
+      <span class="sec-sub">BILL OF MATERIALS</span>
+    </div>
+    <table class="bom reveal">
+      <thead><tr><th>Ref</th><th>Category</th><th>Components</th></tr></thead>
+      <tbody>
+        <tr><td class="ref">U1</td><td class="cat">ERP / MRP</td><td class="items">SAP S/4HANA (SCM & MM) · Oracle NetSuite · Microsoft Dynamics 365</td></tr>
+        <tr><td class="ref">U2</td><td class="cat">Analytics & BI</td><td class="items">Microsoft Excel (PivotTables, XLOOKUP, SUMIFS) · Power BI · Tableau · SQL</td></tr>
+        <tr><td class="ref">U3</td><td class="cat">AI & Automation</td><td class="items">Claude & Gemini agent building · Multi-model task routing · AI-assisted supplier research</td></tr>
+        <tr><td class="ref">U4</td><td class="cat">Supply Chain Methods</td><td class="items">Procurement & negotiation · Quantitative forecasting & demand analysis · EOQ & safety stock · Inventory optimization</td></tr>
+        <tr><td class="ref">U5</td><td class="cat">Systems</td><td class="items">TMS & WMS platforms · Salesforce CRM</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2>Education</h2>
+      <span class="sec-sub">PACKAGE INFORMATION</span>
+    </div>
+    <div class="edu reveal">
+      <h3>George Mason University</h3>
+      <span style="color:var(--ink-soft)">B.S. in Business — Operations & Supply Chain Management</span>
+      <span class="meta">FAIRFAX, VA</span>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="order reveal">
+      <div class="order-head">05 · Ordering Information — Contact for Availability</div>
+      <div class="order-body">
+        <a href="mailto:tobinngo1@gmail.com">tobinngo1@gmail.com</a>
+        <a href="tel:+17033802296">703-380-2296</a>
+        <a href="https://linkedin.com/in/tobinngo1" target="_blank" rel="noopener">linkedin.com/in/tobinngo1</a>
+        <span class="mono" style="font-size:12px;color:var(--ink-soft)">PRINCE WILLIAM COUNTY, VIRGINIA</span>
+      </div>
+    </div>
+    <div class="colophon">
+      <span>© 2026 TOBIN NGO · DESIGNED AS A DATASHEET, BECAUSE THAT'S WHAT I READ ALL DAY</span>
+      <span>SHEET 1 OF 1</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target);} });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
